@@ -7,7 +7,9 @@
 
 import Foundation
 
-struct Food: Equatable {
+struct Food: Equatable, Identifiable {
+    let id = UUID()
+    
     var name: String
     var image: String
     
@@ -27,4 +29,8 @@ struct Food: Equatable {
         Food(name: "牛肉麵", image: "🐄🍜", calorie: 219, carb: 33, fat: 5, protein: 9),
         Food(name: "關東煮", image: "🥘", calorie: 80, carb: 4, fat: 4, protein: 6),
     ]
+    
+    static var new : Food {
+        Food(name: "", image: "")
+    }
 }

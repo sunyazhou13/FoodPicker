@@ -38,15 +38,6 @@ struct ContentView: View {
 
 // MARK: - subviews
 private extension ContentView {
-    @ViewBuilder var selectedFoodInfoView: some View {
-        if let selectedFood {
-            foodNameView
-        }
-        Text("热量 \(selectedFood.$calorie)").font(.title2)
-        
-        foodDetailView
-    }
-    
     var foodImage: some View {
         Group {
             if let selectedFood {
@@ -82,29 +73,9 @@ private extension ContentView {
         }
     }
     var foodDetailView: some View {
-        //                HStack {
-        //                    VStack(spacing: 12) {
-        //                        Text("蛋白质")
-        //                        Text(selectedFood!.protein.formatted() + " g")
-        //                    }
-        //                    Divider().frame(width: 1).padding(.horizontal)
-        //                    VStack(spacing: 12) {
-        //                        Text("脂肪")
-        //                        Text(selectedFood!.fat.formatted() + " g")
-        //                    }
-        //                    Divider().frame(width: 1).padding(.horizontal)
-        //                    VStack(spacing: 12) {
-        //                        Text("碳水")
-        //                        Text(selectedFood!.carb.formatted() + " g")
-        //                    }
-        //                }
-        //                .font(.title3)
-        //                .padding(.horizontal)
-        //                .padding()
-        //                .background(RoundedRectangle(cornerRadius: 8).foregroundColor(Color(.systemBackground)))
         VStack {
             if (shouldShowInfo) {
-                Grid {
+                Grid(horizontalSpacing: 12, verticalSpacing: 12) {
                     GridRow {
                         Text("蛋白质")
                         Text("脂肪")
@@ -132,6 +103,14 @@ private extension ContentView {
         .clipped()
     }
     
+    
+    @ViewBuilder var selectedFoodInfoView: some View {
+        if let selectedFood {
+            foodNameView
+            Text("热量 \(selectedFood.$calorie)").font(.title2)
+            foodDetailView
+        }
+    }
     
     var selectFoodButton : some View {
         Button {

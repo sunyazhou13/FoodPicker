@@ -9,9 +9,9 @@ import Foundation
 import SwiftUI
 
 extension View {
-    func mainButtonStyle() -> some View {
+    func mainButtonStyle(shape : ButtonBorderShape = .capsule) -> some View {
         buttonStyle(.borderedProminent)
-            .buttonBorderShape(.capsule)
+            .buttonBorderShape(shape)
             .controlSize(.large)
     }
     
@@ -29,6 +29,7 @@ extension Animation {
 extension ShapeStyle where Self == Color {
     static var bg: Color {  Color(.systemBackground) }
     static var bg2: Color { Color(.secondarySystemBackground) }
+    static var groupBg: Color { Color(.systemGroupedBackground)}
 }
 
 extension AnyTransition {
@@ -38,4 +39,12 @@ extension AnyTransition {
     )
     
     static let moveUpWithOpacity = Self.move(edge: .top).combined(with: .opacity)
+}
+
+extension AnyLayout
+{
+    static func userVStack(if condition: Bool, spacing: CGFloat, @ViewBuilder content: @escaping () -> some View) -> some View {
+        let layout = condition ? AnyLayout(VStackLayout(spacing: spacing)) : AnyLayout(HStackLayout(spacing: spacing))
+        return layout(content)
+    }
 }
