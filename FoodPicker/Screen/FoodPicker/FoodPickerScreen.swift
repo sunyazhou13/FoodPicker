@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct FoodPickerScreen: View {
     @State private var selectedFood: Food?
     @State private var shouldShowInfo: Bool = false
     
@@ -24,7 +24,7 @@ struct ContentView: View {
                 cancelButton
             }
             .padding()
-            .frame(maxWidth: .infinity, minHeight: UIScreen.main.bounds.height - 100)
+            .frame(minHeight: UIScreen.main.bounds.height - 100)
             .font(.title)
             .mainButtonStyle()
             .animation(.mySpring, value: shouldShowInfo)
@@ -37,13 +37,13 @@ struct ContentView: View {
 
 
 // MARK: - subviews
-private extension ContentView {
+private extension FoodPickerScreen {
     var foodImage: some View {
         Group {
             if let selectedFood {
                 Text(selectedFood.image)
                     .font(.system(size: 200))
-                    .minimumScaleFactor(0.7)
+                    .minimumScaleFactor(0.1)
                     .lineLimit(1)
             } else {
                 Image("dinner")
@@ -99,7 +99,7 @@ private extension ContentView {
                 .transition(.moveUpWithOpacity)
             }
         }
-        .frame(maxWidth: .infinity)
+        .maxWidth()
         .clipped()
     }
     
@@ -137,7 +137,7 @@ private extension ContentView {
     }
 }
 
-extension ContentView {
+extension FoodPickerScreen {
     init(selectedFood: Food) {
         _selectedFood = State(wrappedValue: selectedFood)
     }
@@ -145,8 +145,8 @@ extension ContentView {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView(selectedFood: .examples.first!)
-        ContentView(selectedFood: .examples.first!).previewDevice(.iPad)
-        ContentView(selectedFood: .examples.first!).previewDevice(.iPhoneSE)
+        FoodPickerScreen(selectedFood: .examples.first!)
+        FoodPickerScreen(selectedFood: .examples.first!).previewDevice(.iPad)
+        FoodPickerScreen(selectedFood: .examples.first!).previewDevice(.iPhoneSE)
     }
 }
