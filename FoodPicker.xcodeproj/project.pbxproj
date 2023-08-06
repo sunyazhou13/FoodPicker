@@ -25,6 +25,8 @@
 		3FC9B7E62A63A83A000FA9FA /* FoodForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC9B7E52A63A83A000FA9FA /* FoodForm.swift */; };
 		3FE810D92A3D538B00F6B774 /* Food.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FE810D82A3D538B00F6B774 /* Food.swift */; };
 		3FE810DB2A3D64E800F6B774 /* PreviewDevice+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FE810DA2A3D64E800F6B774 /* PreviewDevice+.swift */; };
+		3FF2D8032A7F5F3700BE4DE5 /* HomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF2D8022A7F5F3700BE4DE5 /* HomeScreen.swift */; };
+		3FF2D8052A7F72B200BE4DE5 /* SettingScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF2D8042A7F72B200BE4DE5 /* SettingScreen.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -47,6 +49,8 @@
 		3FC9B7E52A63A83A000FA9FA /* FoodForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodForm.swift; sourceTree = "<group>"; };
 		3FE810D82A3D538B00F6B774 /* Food.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Food.swift; sourceTree = "<group>"; };
 		3FE810DA2A3D64E800F6B774 /* PreviewDevice+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PreviewDevice+.swift"; sourceTree = "<group>"; };
+		3FF2D8022A7F5F3700BE4DE5 /* HomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreen.swift; sourceTree = "<group>"; };
+		3FF2D8042A7F72B200BE4DE5 /* SettingScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingScreen.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,6 +69,8 @@
 			children = (
 				3F199E592A7DF82F001502EA /* FoodPicker */,
 				3F199E582A7DF814001502EA /* FoodList */,
+				3FF2D8022A7F5F3700BE4DE5 /* HomeScreen.swift */,
+				3FF2D8042A7F72B200BE4DE5 /* SettingScreen.swift */,
 			);
 			path = Screen;
 			sourceTree = "<group>";
@@ -263,6 +269,8 @@
 				3F199E6C2A7E153C001502EA /* AnyLayout+.swift in Sources */,
 				3F199E682A7E14EE001502EA /* ShapeStyle+.swift in Sources */,
 				3F199E622A7DFDDD001502EA /* SFSymbol.swift in Sources */,
+				3FF2D8052A7F72B200BE4DE5 /* SettingScreen.swift in Sources */,
+				3FF2D8032A7F5F3700BE4DE5 /* HomeScreen.swift in Sources */,
 				3F8A6D792A5A8F35001DCA95 /* FoodListScreen.swift in Sources */,
 				3F199E6A2A7E1520001502EA /* AnyTransition+.swift in Sources */,
 				3F5CDBE929EC17870081274D /* AppEntry.swift in Sources */,
