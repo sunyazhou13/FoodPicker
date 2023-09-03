@@ -7,8 +7,8 @@
 
 import Foundation
 
-struct Food: Equatable, Identifiable {
-    let id = UUID()
+struct Food: Equatable, Identifiable, Codable {
+    var id = UUID()
     var name: String
     var image: String
     
@@ -16,6 +16,41 @@ struct Food: Equatable, Identifiable {
     @Suffix("g") var carb      : Double = .zero
     @Suffix("g") var fat       : Double = .zero
     @Suffix("g") var protein   : Double = .zero
+    
+    enum CodingKeys: CodingKey {
+        case id
+        case name
+        case image
+        case calorie
+        case carb
+        case fat
+        case protein
+    }
+    
+    init(from decoder: Decoder) throws {
+        let container: KeyedDecodingContainer<Food.CodingKeys> = try decoder.container(keyedBy: Food.CodingKeys.self)
+        
+        self.id = try container.decode(UUID.self, forKey: Food.CodingKeys.id)
+        self.name = try container.decode(String.self, forKey: Food.CodingKeys.name)
+        self.image = try container.decode(String.self, forKey: Food.CodingKeys.image)
+        self._calorie = try container.decode(Suffix.self, forKey: Food.CodingKeys.calorie)
+        self._carb = try container.decode(Suffix.self, forKey: Food.CodingKeys.carb)
+        self._fat = try container.decode(Suffix.self, forKey: Food.CodingKeys.fat)
+        self._protein = try container.decode(Suffix.self, forKey: Food.CodingKeys.protein)
+        
+    }
+    
+    func encode(to encoder: Encoder) throws {
+        var container: KeyedEncodingContainer<Food.CodingKeys> = encoder.container(keyedBy: Food.CodingKeys.self)
+        
+        try container.encode(self.id, forKey: Food.CodingKeys.id)
+        try container.encode(self.name, forKey: Food.CodingKeys.name)
+        try container.encode(self.image, forKey: Food.CodingKeys.image)
+        try container.encode(self._calorie, forKey: Food.CodingKeys.calorie)
+        try container.encode(self._carb, forKey: Food.CodingKeys.carb)
+        try container.encode(self._fat, forKey: Food.CodingKeys.fat)
+        try container.encode(self._protein, forKey: Food.CodingKeys.protein)
+    }
 }
 
 extension Food {
@@ -33,3 +68,4 @@ extension Food {
         Food(name: "關東煮", image: "🥘", calorie: 80, carb: 4, fat: 4, protein: 6),
     ]
 }
+

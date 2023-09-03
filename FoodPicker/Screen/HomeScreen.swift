@@ -8,7 +8,7 @@
 import SwiftUI
 
 extension HomeScreen {
-    enum Tab: View, CaseIterable {
+    enum Tab: String, View, CaseIterable {
         case picker, list, settings
         
         var body: some View {
@@ -38,17 +38,28 @@ extension HomeScreen {
 }
 
 struct HomeScreen: View {
+    @AppStorage(.shouldUseDarkMode) var shouldUseDarkMode = false
     @State var tab: Tab = .settings
+//    let rawValue = UserDefaults.standard.string(forKey: UserDefaults.Key.startTab.rawValue) ?? ""
+//    return Tab(rawValue: rawValue) ?? .picker
     var body: some View {
-        TabView(selection: $tab) {
-            ForEach(Tab.allCases, id: \.self) { $0 }
+        NavigationStack {
+            TabView(selection: $tab) {
+                ForEach(Tab.allCases, id: \.self) { $0 }
+            }
+            .preferredColorScheme(shouldUseDarkMode ? .dark : .light)
         }
     }
 }
 
-struct HomeScreen_Previews: PreviewProvider {
+struct HomeScreen_Previews: PreviewProvider, View {
+    @AppStorage(.startTab) var startTab = HomeScreen.Tab.picker
     
+    var body: some View {
+        HomeScreen(tab: startTab)
+    }
+
     static var previews: some View {
-        HomeScreen()
+        Self()
     }
 }

@@ -21,3 +21,5 @@ import SwiftUI
         wrappedValue.formatted() + " \(suffix)"
     }
 }
+
+extension Suffix: Codable { }
