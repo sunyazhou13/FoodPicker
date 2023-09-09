@@ -90,9 +90,9 @@ private extension FoodPickerScreen {
                         .padding(.horizontal, -10)
                     
                     GridRow {
-                        Text(selectedFood!.$protein)
-                        Text(selectedFood!.$carb)
-                        Text(selectedFood!.$fat)
+                        Text(selectedFood!.$protein.desciption)
+                        Text(selectedFood!.$carb.desciption)
+                        Text(selectedFood!.$fat.desciption)
                     }
                 }
                 .font(.title3)
@@ -110,7 +110,7 @@ private extension FoodPickerScreen {
     @ViewBuilder var selectedFoodInfoView: some View {
         if let selectedFood {
             foodNameView
-            Text("热量 \(selectedFood.$calorie)").font(.title2)
+            Text("热量 \(selectedFood.$calorie.desciption)").font(.title2)
             foodDetailView
         }
     }

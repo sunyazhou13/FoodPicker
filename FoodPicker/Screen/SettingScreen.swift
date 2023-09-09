@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SettingScreen: View {
     @AppStorage(.shouldUseDarkMode) private var shouldUseDarkMode: Bool = false
-    @AppStorage(.unit) private var unit: Unit = .gram
+    @AppStorage(.preferredWeightUnit) private var unit: MyWidgetUnit
     @AppStorage(.startTab) private var startTab: HomeScreen.Tab = .picker
     @State private var confirmationDialog: Dialog = .inactive
     private var shouldShowDialog: Binding<Bool> {
@@ -27,7 +27,7 @@ struct SettingScreen: View {
                 }
                 
                 Picker(selection: $unit) {
-                    ForEach(Unit.allCases) { $0 }
+                    ForEach(MyWidgetUnit.allCases) { $0 }
                 } label: {
                     Label("单位", systemImage: .unitSign)
                 }
@@ -46,15 +46,21 @@ struct SettingScreen: View {
                         .tint(Color(.label))
                 }
             }
-            .confirmationDialog(confirmationDialog.rawValue, isPresented: shouldShowDialog, titleVisibility: .visible) {
-                Button("确定", role: .destructive, action: confirmationDialog.action)
-                Button("取消", role: .cancel) { }
-                } message: {
-                    Text(confirmationDialog.message)
-                }
-
+            .confirmationDialog(confirmationDialog.rawValue,
+                                            isPresented: shouldShowDialog,
+                                            titleVisibility: .visible,
+                                            actions: buildConfirmationDialogButtons) {
+                            Text(confirmationDialog.message)
+                        }
         }
     }
+    
+    private func buildConfirmationDialogButtons() -> some View {
+            Group {
+                Button("確定", role: .destructive, action: confirmationDialog.action)
+                Button("取消", role: .cancel) { }
+            }
+        }
 }
 
 private enum Dialog: String {
@@ -76,7 +82,7 @@ private enum Dialog: String {
     func action() {
         switch self {
         case .resetSettings:
-            let keys: [UserDefaults.Key] = [.shouldUseDarkMode, .unit, .startTab]
+            let keys: [UserDefaults.Key] = [.shouldUseDarkMode, .preferredWeightUnit, .startTab]
             for key in keys {
                 UserDefaults.standard.removeObject(forKey: key.rawValue)
             }
@@ -87,6 +93,7 @@ private enum Dialog: String {
         }
     }
 }
+
 
 extension Dialog: CaseIterable {
     static let allCases:[Dialog] = [.resetSettings, .resetFoodList]

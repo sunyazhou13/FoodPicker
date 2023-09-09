@@ -6,55 +6,76 @@
 //
 
 import Foundation
+import SwiftUI
 
 struct Food: Equatable, Identifiable, Codable {
     var id = UUID()
     var name: String
     var image: String
     
-    @Suffix("大卡") var calorie : Double = .zero
-    @Suffix("g") var carb      : Double = .zero
-    @Suffix("g") var fat       : Double = .zero
-    @Suffix("g") var protein   : Double = .zero
+    @Energy var calorie : Double
+    @Weight var carb    : Double
+    @Weight var fat     : Double
+    @Weight var protein : Double
     
-    enum CodingKeys: CodingKey {
-        case id
-        case name
-        case image
-        case calorie
-        case carb
-        case fat
-        case protein
-    }
-    
-    init(from decoder: Decoder) throws {
-        let container: KeyedDecodingContainer<Food.CodingKeys> = try decoder.container(keyedBy: Food.CodingKeys.self)
-        
-        self.id = try container.decode(UUID.self, forKey: Food.CodingKeys.id)
-        self.name = try container.decode(String.self, forKey: Food.CodingKeys.name)
-        self.image = try container.decode(String.self, forKey: Food.CodingKeys.image)
-        self._calorie = try container.decode(Suffix.self, forKey: Food.CodingKeys.calorie)
-        self._carb = try container.decode(Suffix.self, forKey: Food.CodingKeys.carb)
-        self._fat = try container.decode(Suffix.self, forKey: Food.CodingKeys.fat)
-        self._protein = try container.decode(Suffix.self, forKey: Food.CodingKeys.protein)
-        
-    }
-    
-    func encode(to encoder: Encoder) throws {
-        var container: KeyedEncodingContainer<Food.CodingKeys> = encoder.container(keyedBy: Food.CodingKeys.self)
-        
-        try container.encode(self.id, forKey: Food.CodingKeys.id)
-        try container.encode(self.name, forKey: Food.CodingKeys.name)
-        try container.encode(self.image, forKey: Food.CodingKeys.image)
-        try container.encode(self._calorie, forKey: Food.CodingKeys.calorie)
-        try container.encode(self._carb, forKey: Food.CodingKeys.carb)
-        try container.encode(self._fat, forKey: Food.CodingKeys.fat)
-        try container.encode(self._protein, forKey: Food.CodingKeys.protein)
-    }
+//    enum CodingKeys: CodingKey {
+//        case id
+//        case name
+//        case image
+//        case calorie
+//        case carb
+//        case fat
+//        case protein
+//    }
+//
+//    init(from decoder: Decoder) throws {
+//        let container: KeyedDecodingContainer<Food.CodingKeys> = try decoder.container(keyedBy: Food.CodingKeys.self)
+//
+//        self.id = try container.decode(UUID.self, forKey: Food.CodingKeys.id)
+//        self.name = try container.decode(String.self, forKey: Food.CodingKeys.name)
+//        self.image = try container.decode(String.self, forKey: Food.CodingKeys.image)
+//        self._calorie = try container.decode(Suffix.self, forKey: Food.CodingKeys.calorie)
+//        self._carb = try container.decode(Suffix.self, forKey: Food.CodingKeys.carb)
+//        self._fat = try container.decode(Suffix.self, forKey: Food.CodingKeys.fat)
+//        self._protein = try container.decode(Suffix.self, forKey: Food.CodingKeys.protein)
+//
+//    }
+//
+//    func encode(to encoder: Encoder) throws {
+//        var container: KeyedEncodingContainer<Food.CodingKeys> = encoder.container(keyedBy: Food.CodingKeys.self)
+//
+//        try container.encode(self.id, forKey: Food.CodingKeys.id)
+//        try container.encode(self.name, forKey: Food.CodingKeys.name)
+//        try container.encode(self.image, forKey: Food.CodingKeys.image)
+//        try container.encode(self._calorie, forKey: Food.CodingKeys.calorie)
+//        try container.encode(self._carb, forKey: Food.CodingKeys.carb)
+//        try container.encode(self._fat, forKey: Food.CodingKeys.fat)
+//        try container.encode(self._protein, forKey: Food.CodingKeys.protein)
+//    }
 }
 
 extension Food {
-    static var new : Food { Food(name: "", image: "") }
+    static var new : Food {
+        let preferredWeightUnit = MyWidgetUnit.getPreferredUnit()
+        let preferredEnergyUnit = MyEnergyUnit.getPreferredUnit()
+        
+        return Food(name: "",
+                    image: "",
+                    calorie: .init(wrappedValue: .zero, preferredEnergyUnit),
+                    carb: .init(wrappedValue: .zero, preferredWeightUnit),
+                    fat: .init(wrappedValue: .zero, preferredWeightUnit),
+                    protein: .init(wrappedValue: .zero, preferredWeightUnit))
+    }
+    
+    private init(id: UUID = UUID(), name: String, image: String, calorie: Double, carb: Double, fat: Double, protein: Double) {
+        self.id = id
+        self.name = name
+        self.image = image
+        self._calorie = .init(wrappedValue: calorie, .cal)
+        self._carb = .init(wrappedValue: carb, .gram)
+        self._fat = .init(wrappedValue: fat, .gram)
+        self._protein = .init(wrappedValue: protein, .gram)
+    }
     
     static let examples = [
         Food(name: "漢堡", image: "🍔", calorie: 294, carb: 14, fat: 24, protein: 17),

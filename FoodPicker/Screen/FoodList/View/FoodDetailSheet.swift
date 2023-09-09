@@ -29,10 +29,10 @@ extension FoodListScreen {
                     .minimumScaleFactor(shouldUseVStack ? 1 :  0.5)
                 
                 Grid(horizontalSpacing: 30, verticalSpacing: 12) {
-                    buildNutritionView(title: "热量", value: food.$calorie)
-                    buildNutritionView(title: "蛋白质", value: food.$protein)
-                    buildNutritionView(title: "脂肪", value: food.$fat)
-                    buildNutritionView(title: "碳水", value: food.$carb)
+                    buildNutritionView(title: "热量", value: food.$calorie.desciption)
+                    buildNutritionView(title: "蛋白质", value: food.$protein.desciption)
+                    buildNutritionView(title: "脂肪", value: food.$fat.desciption)
+                    buildNutritionView(title: "碳水", value: food.$carb.desciption)
                 }
             }
             .padding()
